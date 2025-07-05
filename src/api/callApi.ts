@@ -136,8 +136,8 @@ const handleError = async <T>(error: unknown, url: string, config: RequestInit):
 // Refresh token implementation
 const refreshToken = async (): Promise<string> => {
     try {
-        const deviceToken = getCookies(`${process.env.NEXT_PUBLIC_APP_NAME}deviceToken`);
-        const refreshToken = getCookies(`${process.env.NEXT_PUBLIC_APP_NAME}refreshToken`);
+        const deviceToken = getCookies(`${import.meta.env.NEXT_PUBLIC_APP_NAME}deviceToken`);
+        const refreshToken = getCookies(`${import.meta.env.NEXT_PUBLIC_APP_NAME}refreshToken`);
 
         const response = await callApi<RefreshTokenResponse>(
             `${API_ENDPOINT.auth}refresh-token`,
@@ -150,7 +150,7 @@ const refreshToken = async (): Promise<string> => {
             }
         );
 
-        setCookies(`${process.env.NEXT_PUBLIC_APP_NAME}token`, response.accessToken);
+        setCookies(`${import.meta.env.NEXT_PUBLIC_APP_NAME}token`, response.accessToken);
         return response.accessToken;
     } catch (error) {
         // logoutUser();
