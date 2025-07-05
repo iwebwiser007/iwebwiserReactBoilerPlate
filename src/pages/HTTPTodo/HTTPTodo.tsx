@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import TodoForm from '../../components/Todo/TodoForm';
-import type { Todo } from '../../interfaces/Todo';
+import type { Todo } from '../../interfaces/Todo.model';
 import TodoList from '../../components/Todo/TodoList';
-import { callApi } from '../../api/callApi';
+import { callApi, IApiErrorResponse } from '../../api/callApi';
 import { API_ENDPOINT, API_URL } from '../../api/constant';
 import { showToastNotificatoin } from '../../utility/helper';
 import Spinner from '../../components/UI/Loading/Spinner';
@@ -29,9 +29,9 @@ const Todo: React.FC = () => {
                 method: 'GET',
             });
             setTodos(todoList.slice(0, 10)); // Limiting to 10 todos for simplicity
-        } catch (err: any) {
-            setError('Failed to fetch todos. Please try again later.');
-            console.error(err);
+        } catch (err: unknown) {
+            const error = err as IApiErrorResponse
+            console.error(error.message);
         } finally {
             setLoading(false);
         }
@@ -53,9 +53,9 @@ const Todo: React.FC = () => {
             });
             showToastNotificatoin('success', 'Todo added successfully')
             setTodos([...todos, result])
-        } catch (err: any) {
-            setError('Failed to add todo. Please try again later.');
-            console.error(err);
+        } catch (err: unknown) {
+            const error = err as IApiErrorResponse
+            setError(error.message ?? 'Failed to add todo. Please try again later.');
         }
     };
 
@@ -64,7 +64,7 @@ const Todo: React.FC = () => {
      * @param {number} id - The ID of the todo to toggle.
      */
     const toggleTodo = async (id: number) => {
-        const todo = todos.find((todo) => todo.id === id);
+        const todo = todos.find((todo: Todo) => todo.id === id);
         if (!todo) return;
 
         const updatedTodo = { title: todo.title, completed: !todo.completed };
@@ -73,13 +73,13 @@ const Todo: React.FC = () => {
                 method: 'PUT',
                 data: updatedTodo,
             });
-            setTodos((prevTodos) =>
+            setTodos((prevTodos: Todo[]) =>
                 prevTodos.map((todo) => (todo.id === id ? result : todo))
             );
             showToastNotificatoin('success', 'Todo status changed successfully')
-        } catch (err: any) {
-            setError('Failed to toggle todo status. Please try again later.');
-            console.error(err);
+        } catch (err: unknown) {
+            const error = err as IApiErrorResponse
+            setError(error.message ?? 'Failed to toggle todo status. Please try again later.');
         }
     };
 
@@ -92,11 +92,11 @@ const Todo: React.FC = () => {
             await callApi<void>(API_URL + API_ENDPOINT.todo + `${id}`, {
                 method: 'DELETE',
             });
-            setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+            setTodos((prevTodos: Todo[]) => prevTodos.filter((todo) => todo.id !== id));
             showToastNotificatoin('success', 'Todo deleted successfully')
-        } catch (err: any) {
-            setError('Failed to delete todo. Please try again later.');
-            console.error(err);
+        } catch (err: unknown) {
+            const error = err as IApiErrorResponse
+            setError(error.message ?? 'Failed to delete todo. Please try again later.');
         }
     };
 

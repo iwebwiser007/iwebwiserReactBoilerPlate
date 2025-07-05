@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import TodoForm from '../../components/Todo/TodoForm';
-import type { Todo } from '../../interfaces/Todo';
+import type { Todo } from '../../interfaces/Todo.model';
 import TodoList from '../../components/Todo/TodoList';
 import { showToastNotificatoin } from '../../utility/helper';
 

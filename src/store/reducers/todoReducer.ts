@@ -1,4 +1,4 @@
-import { Todo } from '../../interfaces/Todo';
+import { Todo } from '../../interfaces/Todo.model';
 import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../types';
 
 

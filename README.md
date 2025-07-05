@@ -11,7 +11,10 @@ The project follows a clean and modular folder structure to promote scalability 
 public/
 src/
   ├── api/                # API call logic
-  ├── components/         # Reusable components
+  ├── components/         # Reusable 
+  
+
+  
   │     ├── Layout/       # Layout-specific components
   │     ├── Todo/         # Todo-related components
   │     ├── UI/           # Common UI components (Buttons, Forms, Modals, etc.)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Todo } from '../../interfaces/Todo';
+import { Todo } from '../../interfaces/Todo.model';
 import List from '../UI/List/List';
 
 interface TodoListProps {
