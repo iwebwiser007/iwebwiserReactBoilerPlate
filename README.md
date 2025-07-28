@@ -253,14 +253,3 @@ npm run test
 **Quality First:** This system catches 95%+ of common errors before code reaches your repository!
 
 ---
-
-## How to Download the README
-
-1. Copy the entire markdown content above  
-2. Save it as `README.md` in your project root  
-3. Commit with a proper message:
-
-   ```bash
-   git add README.md
-   git commit -m "docs: add comprehensive project README"
-   ```
